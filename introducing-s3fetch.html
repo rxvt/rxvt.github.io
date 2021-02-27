@@ -27,7 +27,16 @@
 
 
   
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BX2RNF9K4Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-BX2RNF9K4Y');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
 
 <meta name="author" content="Shane Anderson" />
 <meta name="description" content="S3Fetch is an simple &amp; fast multi-threaded S3 download tool built to make the process of downloading objects from a large S3 bucket as fast and painless as possible, especially if you need to download objects under a specific prefix. While tools like s4cmd work well for general usage (and have a lot more options!) they are not performant when downloading objects under a prefix from a bucket containing a large amount of objects as they retrieve a listing of all objects in the bucket first, then filter the object keys which results is a extremely long time to first byte. S3Fetch instead requests that S3 return only the objects under the prefix you&#39;ve requested and as the object listing occurs …" />
