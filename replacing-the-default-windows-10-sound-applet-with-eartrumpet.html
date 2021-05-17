@@ -1,32 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="index, follow" />
-
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/stylesheet/style.min.css">
-
-
-    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
-          href="https://shaneanderson.id.au/theme/pygments/default.min.css">
-
-
-  <link rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/font-awesome/css/fontawesome.css">
-  <link rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/font-awesome/css/brands.css">
-  <link rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/font-awesome/css/solid.css">
-
-
-    <link href="https://shaneanderson.id.au/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Shane Anderson Atom">
-
-
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;350;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/css/base.css">
   
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/pygments/default.min.css">
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BX2RNF9K4Y"></script>
 <script>
@@ -37,167 +21,54 @@
   gtag('config', 'G-BX2RNF9K4Y');
 </script>
 <!-- End of Global site tag (gtag.js) - Google Analytics -->
+    <script src="https://kit.fontawesome.com/d56d93ba3d.js" crossorigin="anonymous"></script>
 
-<meta name="author" content="Shane Anderson" />
-<meta name="description" content="I&#39;ve recently started using EarTrumpet as a replacement for the standard Windows audio applet that lives in the notification area and been loving that it allows me to adjust the volume per application. Combined with the standard Windows functionality that allows the assignment of individual audio devices to specific applications results in audio management in Windows becoming quite configurable. One thing that took me a bit of digging to figure out is how to easily replace the standard audio applet with EarTrumpet as I didn&#39;t want to have 2 audio applets visible in the notifications area, so thought I&#39;d document the process here. Open Start Menu and search for Taskbar Settings. Scroll down to the Notification area section and click …" />
-<meta name="keywords" content="windows, audio">
-
-
-<meta property="og:site_name" content="Shane Anderson"/>
-<meta property="og:title" content="Replacing the default Windows 10 sound applet with EarTrumpet"/>
-<meta property="og:description" content="I&#39;ve recently started using EarTrumpet as a replacement for the standard Windows audio applet that lives in the notification area and been loving that it allows me to adjust the volume per application. Combined with the standard Windows functionality that allows the assignment of individual audio devices to specific applications results in audio management in Windows becoming quite configurable. One thing that took me a bit of digging to figure out is how to easily replace the standard audio applet with EarTrumpet as I didn&#39;t want to have 2 audio applets visible in the notifications area, so thought I&#39;d document the process here. Open Start Menu and search for Taskbar Settings. Scroll down to the Notification area section and click …"/>
-<meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://shaneanderson.id.au/replacing-the-default-windows-10-sound-applet-with-eartrumpet.html"/>
-<meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2021-03-30 19:00:00+11:00"/>
-<meta property="article:modified_time" content=""/>
-<meta property="article:author" content="https://shaneanderson.id.au/author/shane-anderson.html">
-<meta property="article:section" content="General"/>
-<meta property="article:tag" content="windows"/>
-<meta property="article:tag" content="audio"/>
-<meta property="og:image" content="/images/profile.jpg">
-
-  <title>Shane Anderson &ndash; Replacing the default Windows 10 sound applet with EarTrumpet</title>
-
+    <title>Shane Anderson</title>
 </head>
-<body class="light-theme">
-  <aside>
-    <div>
-      <a href="https://shaneanderson.id.au">
-        <img src="/images/profile.jpg" alt="Shane Anderson" title="Shane Anderson">
-      </a>
 
-      <h1>
-        <a href="https://shaneanderson.id.au">Shane Anderson</a>
-      </h1>
-
-
-
-      <nav>
-        <ul class="list">
-
-
-
-            <li>
-              <a target="_self" href="/pages/about.html" >About</a>
-            </li>
-            <li>
-              <a target="_self" href="/pages/projects.html" >Projects</a>
-            </li>
-        </ul>
-      </nav>
-
-      <ul class="social">
-          <li>
-            <a  class="sc-linkedin" href="https://www.linkedin.com/in/shaneanderson3/" target="_blank">
-              <i class="fab fa-linkedin"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-github" href="https://github.com/rxvt" target="_blank">
-              <i class="fab fa-github"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-rss" href="/feeds/all.atom.xml" target="_blank">
-              <i class="fas fa-rss"></i>
-            </a>
-          </li>
-      </ul>
-    </div>
-
-  </aside>
-  <main>
-
-
-<article class="single">
-  <header>
-      
-    <h1 id="replacing-the-default-windows-10-sound-applet-with-eartrumpet">Replacing the default Windows 10 sound applet with EarTrumpet</h1>
-    <p>
-      Posted on Tue 30 March 2021 in <a href="https://shaneanderson.id.au/category/general.html">General</a>
-
-    </p>
-  </header>
-
-
-  <div>
-    <p>I've recently started using <a href="https://www.microsoft.com/store/p/eartrumpet/9nblggh516xp">EarTrumpet</a> as a replacement for the standard Windows audio applet that lives in the notification area and been loving that it allows me to adjust the volume per application. Combined with the standard Windows functionality that allows the assignment of individual audio devices to specific applications results in audio management in Windows becoming quite configurable.</p>
+<body>
+<header class="top-nav">
+    <nav>
+        <div>
+            <div class="blog-title">Shane Anderson</div>
+            <a class="nav" href="https://shaneanderson.id.au">Home</a> |
+            <a class="nav" href="https://shaneanderson.id.au/pages/about.html">About</a> |
+            <a class="nav" href="https://shaneanderson.id.au/pages/projects.html">Projects</a> |
+                <a href="https://github.com/rxvt"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/shaneanderson3/"><i class="fab fa-linkedin"></i></a>
+                <a href="/feeds/all.atom.xml"><i class="fas fa-rss"></i></a>
+        </div>
+    </nav>
+</header>
+<div class="single">
+    <article>
+        <header>
+            <h2 class="article-title"><a href="https://shaneanderson.id.au/replacing-the-default-windows-10-sound-applet-with-eartrumpet.html#replacing-the-default-windows-10-sound-applet-with-eartrumpet">Replacing the default Windows 10 sound applet with EarTrumpet</a></h2>
+            <p class="article-meta">Posted on Tue 30 March 2021 posted in
+              <a href="https://shaneanderson.id.au/tag/windows.html">windows</a>,              <a href="https://shaneanderson.id.au/tag/audio.html">audio</a>        </header>
+        <div class="article-content">
+          <p>I've recently started using <a href="https://www.microsoft.com/store/p/eartrumpet/9nblggh516xp">EarTrumpet</a> as a replacement for the standard Windows audio applet that lives in the notification area and been loving that it allows me to adjust the volume per application. Combined with the standard Windows functionality that allows the assignment of individual audio devices to specific applications results in audio management in Windows becoming quite configurable.</p>
 <p>One thing that took me a bit of digging to figure out is how to easily replace the standard audio applet with EarTrumpet as I didn't want to have 2 audio applets visible in the notifications area, so thought I'd document the process here.</p>
 <ol>
 <li>Open <code>Start Menu</code> and search for <code>Taskbar Settings</code>.</li>
 <li>Scroll down to the <code>Notification area</code> section and click on <code>Select which icons appear on the taskbar</code>.
-<img alt="Taskbar Settings" src="https://shaneanderson.id.au/images/eartrumpet_taskbar_settings.png"></li>
+<img alt="Taskbar Settings" src="images/eartrumpet_taskbar_settings.png"></li>
 <li>Enable EarTrumpet.
-<img alt="Enable EarTrumpet" src="https://shaneanderson.id.au/images/eartrumpet_app_icons.png"></li>
+<img alt="Enable EarTrumpet" src="{images/eartrumpet_app_icons.png"></li>
 <li>Navigate back to <code>Taskbar Settings</code>.</li>
 <li>Click on <code>Turn system icons on or off</code>.</li>
 <li>Disable <code>Volume</code>.
-<img alt="Enable EarTrumpet" src="https://shaneanderson.id.au/images/eartrumpet_system_icons.png"></li>
+<img alt="Enable EarTrumpet" src="images/eartrumpet_system_icons.png"></li>
 </ol>
 <p>You should now only have a single audio applet in your notification area.</p>
-  </div>
-  <div class="tag-cloud">
-    <p>
-      <a href="https://shaneanderson.id.au/tag/windows.html">windows</a>
-      <a href="https://shaneanderson.id.au/tag/audio.html">audio</a>
-    </p>
-  </div>
-
-
-
-
-
-<!-- Disqus -->
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'shaneanderson-id-au';
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>
-    Please enable JavaScript to view comments.
-</noscript>
-<!-- End Disqus -->
-</article>
-
-    <footer>
+        </div>
+    </article>
+</div>
+<footer>
+<hr/>
 <p>
-  &copy; 2021 Shane Anderson - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US" target="_blank">Creative Commons Attribution</a>
+  &copy; 2021 Shane Anderson - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US" target="_blank">Creative Commons Attribution</a>. Built with <a href="http://getpelican.com" target="_blank">Pelican</a>
 </p>
-<p>
-Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
-</p><p>
-  <a rel="license"
-     href="http://creativecommons.org/licenses/by/4.0/"
-     target="_blank">
-    <img alt="Creative Commons License"
-         title="Creative Commons License"
-         style="border-width:0"
-           src="https://i.creativecommons.org/l/by/4.0/80x15.png"
-         width="80"
-         height="15"/>
-  </a>
-</p>    </footer>
-  </main>
-
-
-
-
-<script type="application/ld+json">
-{
-  "@context" : "http://schema.org",
-  "@type" : "Blog",
-  "name": " Shane Anderson ",
-  "url" : "https://shaneanderson.id.au",
-  "image": "/images/profile.jpg",
-  "description": ""
-}
-</script>
-
-
+</footer>
 </body>
 </html>

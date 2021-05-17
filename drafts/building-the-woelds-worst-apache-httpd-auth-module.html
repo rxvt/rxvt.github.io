@@ -1,32 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="index, follow" />
-
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/stylesheet/style.min.css">
-
-
-    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
-          href="https://shaneanderson.id.au/theme/pygments/default.min.css">
-
-
-  <link rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/font-awesome/css/fontawesome.css">
-  <link rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/font-awesome/css/brands.css">
-  <link rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/font-awesome/css/solid.css">
-
-
-    <link href="https://shaneanderson.id.au/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Shane Anderson Atom">
-
-
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;350;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/css/base.css">
   
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/pygments/default.min.css">
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BX2RNF9K4Y"></script>
 <script>
@@ -37,92 +21,33 @@
   gtag('config', 'G-BX2RNF9K4Y');
 </script>
 <!-- End of Global site tag (gtag.js) - Google Analytics -->
+    <script src="https://kit.fontawesome.com/d56d93ba3d.js" crossorigin="anonymous"></script>
 
-<meta name="author" content="Shane Anderson" />
-<meta name="description" content="I&#39;ve never really built anything in C other than the standard hello_world.c, so in this article we build the worlds worst Apache HTTPD authentication module! If you&#39;re a C newb like myself check out this freeCodeCamp tutorial to learn the basics. This article is based off the official Apache module tutorial. Getting setup First you&#39;ll need to ensure Apache HTTPD 2.4 is installed along with the required development libraries. If you&#39;re running Ubuntu you can install them with the following: apt-get -y install apache2 apache2-dev You can test you&#39;ve got the correct bits installed by running: apxs --help Step 1 - Getting the basics down. First let&#39;s include the HTTPD header files that provide various functions, data structures and …" />
-<meta name="keywords" content="c, httpd">
-
-
-<meta property="og:site_name" content="Shane Anderson"/>
-<meta property="og:title" content="Building the woelds worst Apache HTTPD auth module"/>
-<meta property="og:description" content="I&#39;ve never really built anything in C other than the standard hello_world.c, so in this article we build the worlds worst Apache HTTPD authentication module! If you&#39;re a C newb like myself check out this freeCodeCamp tutorial to learn the basics. This article is based off the official Apache module tutorial. Getting setup First you&#39;ll need to ensure Apache HTTPD 2.4 is installed along with the required development libraries. If you&#39;re running Ubuntu you can install them with the following: apt-get -y install apache2 apache2-dev You can test you&#39;ve got the correct bits installed by running: apxs --help Step 1 - Getting the basics down. First let&#39;s include the HTTPD header files that provide various functions, data structures and …"/>
-<meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://shaneanderson.id.au/drafts/building-the-woelds-worst-apache-httpd-auth-module.html"/>
-<meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2021-03-21 19:00:00+11:00"/>
-<meta property="article:modified_time" content=""/>
-<meta property="article:author" content="https://shaneanderson.id.au/author/shane-anderson.html">
-<meta property="article:section" content="Projects"/>
-<meta property="article:tag" content="c"/>
-<meta property="article:tag" content="httpd"/>
-<meta property="og:image" content="/images/profile.jpg">
-
-  <title>Shane Anderson &ndash; Building the woelds worst Apache HTTPD auth module</title>
-
+    <title>Shane Anderson</title>
 </head>
-<body class="light-theme">
-  <aside>
-    <div>
-      <a href="https://shaneanderson.id.au">
-        <img src="/images/profile.jpg" alt="Shane Anderson" title="Shane Anderson">
-      </a>
 
-      <h1>
-        <a href="https://shaneanderson.id.au">Shane Anderson</a>
-      </h1>
-
-
-
-      <nav>
-        <ul class="list">
-
-
-
-            <li>
-              <a target="_self" href="/pages/about.html" >About</a>
-            </li>
-            <li>
-              <a target="_self" href="/pages/projects.html" >Projects</a>
-            </li>
-        </ul>
-      </nav>
-
-      <ul class="social">
-          <li>
-            <a  class="sc-linkedin" href="https://www.linkedin.com/in/shaneanderson3/" target="_blank">
-              <i class="fab fa-linkedin"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-github" href="https://github.com/rxvt" target="_blank">
-              <i class="fab fa-github"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-rss" href="/feeds/all.atom.xml" target="_blank">
-              <i class="fas fa-rss"></i>
-            </a>
-          </li>
-      </ul>
-    </div>
-
-  </aside>
-  <main>
-
-
-<article class="single">
-  <header>
-      
-    <h1 id="building-the-woelds-worst-apache-httpd-auth-module">Building the woelds worst Apache HTTPD auth module</h1>
-    <p>
-      Posted on Sun 21 March 2021 in <a href="https://shaneanderson.id.au/category/projects.html">Projects</a>
-
-    </p>
-  </header>
-
-
-  <div>
-    <p>I've never really built anything in C other than the standard <code>hello_world.c</code>, so in this article we build the worlds worst Apache HTTPD authentication module!</p>
+<body>
+<header class="top-nav">
+    <nav>
+        <div>
+            <div class="blog-title">Shane Anderson</div>
+            <a class="nav" href="https://shaneanderson.id.au">Home</a> |
+            <a class="nav" href="https://shaneanderson.id.au/pages/about.html">About</a> |
+            <a class="nav" href="https://shaneanderson.id.au/pages/projects.html">Projects</a> |
+                <a href="https://github.com/rxvt"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/shaneanderson3/"><i class="fab fa-linkedin"></i></a>
+                <a href="/feeds/all.atom.xml"><i class="fas fa-rss"></i></a>
+        </div>
+    </nav>
+</header>
+<div class="single">
+    <article>
+        <header>
+            <h2 class="article-title"><a href="https://shaneanderson.id.au/drafts/building-the-woelds-worst-apache-httpd-auth-module.html#building-the-woelds-worst-apache-httpd-auth-module">Building the woelds worst Apache HTTPD auth module</a></h2>
+            <p class="article-meta">Posted on Sun 21 March 2021 posted in
+              <a href="https://shaneanderson.id.au/tag/c.html">c</a>,              <a href="https://shaneanderson.id.au/tag/httpd.html">httpd</a>        </header>
+        <div class="article-content">
+          <p>I've never really built anything in C other than the standard <code>hello_world.c</code>, so in this article we build the worlds worst Apache HTTPD authentication module!</p>
 <p>If you're a C newb like myself check out this freeCodeCamp <a href="https://www.youtube.com/watch?v=KJgsSFOSQv0">tutorial</a> to learn the basics. This article is based off the official Apache module <a href="https://httpd.apache.org/docs/2.4/developer/modguide.html">tutorial</a>.</p>
 <h1>Getting setup</h1>
 <p>First you'll need to ensure Apache HTTPD 2.4 is installed along with the required development libraries. If you're running Ubuntu you can install them with the following:</p>
@@ -212,68 +137,14 @@
 
 <span class="p">}</span>
 </code></pre></div>
-  </div>
-  <div class="tag-cloud">
-    <p>
-      <a href="https://shaneanderson.id.au/tag/c.html">c</a>
-      <a href="https://shaneanderson.id.au/tag/httpd.html">httpd</a>
-    </p>
-  </div>
-
-
-
-
-
-<!-- Disqus -->
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'shaneanderson-id-au';
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>
-    Please enable JavaScript to view comments.
-</noscript>
-<!-- End Disqus -->
-</article>
-
-    <footer>
+        </div>
+    </article>
+</div>
+<footer>
+<hr/>
 <p>
-  &copy; 2021 Shane Anderson - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US" target="_blank">Creative Commons Attribution</a>
+  &copy; 2021 Shane Anderson - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US" target="_blank">Creative Commons Attribution</a>. Built with <a href="http://getpelican.com" target="_blank">Pelican</a>
 </p>
-<p>
-Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
-</p><p>
-  <a rel="license"
-     href="http://creativecommons.org/licenses/by/4.0/"
-     target="_blank">
-    <img alt="Creative Commons License"
-         title="Creative Commons License"
-         style="border-width:0"
-           src="https://i.creativecommons.org/l/by/4.0/80x15.png"
-         width="80"
-         height="15"/>
-  </a>
-</p>    </footer>
-  </main>
-
-
-
-
-<script type="application/ld+json">
-{
-  "@context" : "http://schema.org",
-  "@type" : "Blog",
-  "name": " Shane Anderson ",
-  "url" : "https://shaneanderson.id.au",
-  "image": "/images/profile.jpg",
-  "description": ""
-}
-</script>
-
-
+</footer>
 </body>
 </html>

@@ -1,32 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="index, follow" />
-
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/stylesheet/style.min.css">
-
-
-    <link id="pygments-light-theme" rel="stylesheet" type="text/css"
-          href="https://shaneanderson.id.au/theme/pygments/default.min.css">
-
-
-  <link rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/font-awesome/css/fontawesome.css">
-  <link rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/font-awesome/css/brands.css">
-  <link rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/font-awesome/css/solid.css">
-
-
-    <link href="https://shaneanderson.id.au/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Shane Anderson Atom">
-
-
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;350;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/css/base.css">
   
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/pygments/default.min.css">
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-BX2RNF9K4Y"></script>
 <script>
@@ -37,92 +21,33 @@
   gtag('config', 'G-BX2RNF9K4Y');
 </script>
 <!-- End of Global site tag (gtag.js) - Google Analytics -->
+    <script src="https://kit.fontawesome.com/d56d93ba3d.js" crossorigin="anonymous"></script>
 
-<meta name="author" content="Shane Anderson" />
-<meta name="description" content="S3Fetch is an simple &amp; fast multi-threaded S3 download tool built to make the process of downloading objects from a large S3 bucket as fast and painless as possible, especially if you need to download objects under a specific prefix. While tools like s4cmd work well for general usage (and have a lot more options!) they are not performant when downloading objects under a prefix from a bucket containing a large amount of objects as they retrieve a listing of all objects in the bucket first, then filter the object keys which results is a extremely long time to first byte. S3Fetch instead requests that S3 return only the objects under the prefix you&#39;ve requested and as the object listing occurs …" />
-<meta name="keywords" content="aws, python">
-
-
-<meta property="og:site_name" content="Shane Anderson"/>
-<meta property="og:title" content="Introducing S3Fetch."/>
-<meta property="og:description" content="S3Fetch is an simple &amp; fast multi-threaded S3 download tool built to make the process of downloading objects from a large S3 bucket as fast and painless as possible, especially if you need to download objects under a specific prefix. While tools like s4cmd work well for general usage (and have a lot more options!) they are not performant when downloading objects under a prefix from a bucket containing a large amount of objects as they retrieve a listing of all objects in the bucket first, then filter the object keys which results is a extremely long time to first byte. S3Fetch instead requests that S3 return only the objects under the prefix you&#39;ve requested and as the object listing occurs …"/>
-<meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://shaneanderson.id.au/introducing-s3fetch.html"/>
-<meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2021-01-28 19:00:00+11:00"/>
-<meta property="article:modified_time" content=""/>
-<meta property="article:author" content="https://shaneanderson.id.au/author/shane-anderson.html">
-<meta property="article:section" content="Projects"/>
-<meta property="article:tag" content="aws"/>
-<meta property="article:tag" content="python"/>
-<meta property="og:image" content="/images/profile.jpg">
-
-  <title>Shane Anderson &ndash; Introducing S3Fetch.</title>
-
+    <title>Shane Anderson</title>
 </head>
-<body class="light-theme">
-  <aside>
-    <div>
-      <a href="https://shaneanderson.id.au">
-        <img src="/images/profile.jpg" alt="Shane Anderson" title="Shane Anderson">
-      </a>
 
-      <h1>
-        <a href="https://shaneanderson.id.au">Shane Anderson</a>
-      </h1>
-
-
-
-      <nav>
-        <ul class="list">
-
-
-
-            <li>
-              <a target="_self" href="/pages/about.html" >About</a>
-            </li>
-            <li>
-              <a target="_self" href="/pages/projects.html" >Projects</a>
-            </li>
-        </ul>
-      </nav>
-
-      <ul class="social">
-          <li>
-            <a  class="sc-linkedin" href="https://www.linkedin.com/in/shaneanderson3/" target="_blank">
-              <i class="fab fa-linkedin"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-github" href="https://github.com/rxvt" target="_blank">
-              <i class="fab fa-github"></i>
-            </a>
-          </li>
-          <li>
-            <a  class="sc-rss" href="/feeds/all.atom.xml" target="_blank">
-              <i class="fas fa-rss"></i>
-            </a>
-          </li>
-      </ul>
-    </div>
-
-  </aside>
-  <main>
-
-
-<article class="single">
-  <header>
-      
-    <h1 id="introducing-s3fetch">Introducing S3Fetch.</h1>
-    <p>
-      Posted on Thu 28 January 2021 in <a href="https://shaneanderson.id.au/category/projects.html">Projects</a>
-
-    </p>
-  </header>
-
-
-  <div>
-    <p><a href="https://github.com/rxvt/s3fetch">S3Fetch</a> is an simple &amp; fast multi-threaded S3 download tool built to make the process of downloading objects from a large S3 bucket as fast and painless as possible, especially if you need to download objects under a specific prefix.</p>
+<body>
+<header class="top-nav">
+    <nav>
+        <div>
+            <div class="blog-title">Shane Anderson</div>
+            <a class="nav" href="https://shaneanderson.id.au">Home</a> |
+            <a class="nav" href="https://shaneanderson.id.au/pages/about.html">About</a> |
+            <a class="nav" href="https://shaneanderson.id.au/pages/projects.html">Projects</a> |
+                <a href="https://github.com/rxvt"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/shaneanderson3/"><i class="fab fa-linkedin"></i></a>
+                <a href="/feeds/all.atom.xml"><i class="fas fa-rss"></i></a>
+        </div>
+    </nav>
+</header>
+<div class="single">
+    <article>
+        <header>
+            <h2 class="article-title"><a href="https://shaneanderson.id.au/introducing-s3fetch.html#introducing-s3fetch">Introducing S3Fetch</a></h2>
+            <p class="article-meta">Posted on Thu 28 January 2021 posted in
+              <a href="https://shaneanderson.id.au/tag/aws.html">aws</a>,              <a href="https://shaneanderson.id.au/tag/python.html">python</a>        </header>
+        <div class="article-content">
+          <p><a href="https://github.com/rxvt/s3fetch">S3Fetch</a> is an simple &amp; fast multi-threaded S3 download tool built to make the process of downloading objects from a large S3 bucket as fast and painless as possible, especially if you need to download objects under a specific prefix.</p>
 <p>While tools like <a href="https://pypi.org/project/s4cmd/">s4cmd</a> work well for general usage (and have a lot more options!) they are not performant when downloading objects under a prefix from a bucket containing a large amount of objects as they retrieve a listing of all objects in the bucket first, then filter the object keys which results is a extremely long time to first byte. S3Fetch instead requests that S3 return only the objects under the prefix you've requested and as the object listing occurs in a separate thread than the downloads <a href="https://github.com/rxvt/s3fetch">S3Fetch</a> will start to download the first object as soon as that first object key is returned by S3 even while S3 continues to send the rest of the object listing!</p>
 <p>Testing shows that (see benchmarks below) <a href="https://pypi.org/project/s4cmd/">s4cmd</a> will not start downloading a single file within 60 minutes, while <a href="https://github.com/rxvt/s3fetch">S3Fetch</a> finishes downloading all objects in approx. 8 seconds when using 100 threads.</p>
 <p><a href="https://github.com/rxvt/s3fetch">S3Fetch</a> is Open Source, written in Python and you can read more detailed instructions and information, raise issues or contribute if that takes your fancy via the <a href="https://github.com/rxvt/s3fetch">GitHub repo</a>.</p>
@@ -176,68 +101,14 @@ Timed out while listing objects after 60min.
 
 Timed out while listing objects after 60min.
 </code></pre></div>
-  </div>
-  <div class="tag-cloud">
-    <p>
-      <a href="https://shaneanderson.id.au/tag/aws.html">aws</a>
-      <a href="https://shaneanderson.id.au/tag/python.html">python</a>
-    </p>
-  </div>
-
-
-
-
-
-<!-- Disqus -->
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'shaneanderson-id-au';
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>
-    Please enable JavaScript to view comments.
-</noscript>
-<!-- End Disqus -->
-</article>
-
-    <footer>
+        </div>
+    </article>
+</div>
+<footer>
+<hr/>
 <p>
-  &copy; 2021 Shane Anderson - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US" target="_blank">Creative Commons Attribution</a>
+  &copy; 2021 Shane Anderson - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US" target="_blank">Creative Commons Attribution</a>. Built with <a href="http://getpelican.com" target="_blank">Pelican</a>
 </p>
-<p>
-Built with <a href="http://getpelican.com" target="_blank">Pelican</a> using <a href="http://bit.ly/flex-pelican" target="_blank">Flex</a> theme
-</p><p>
-  <a rel="license"
-     href="http://creativecommons.org/licenses/by/4.0/"
-     target="_blank">
-    <img alt="Creative Commons License"
-         title="Creative Commons License"
-         style="border-width:0"
-           src="https://i.creativecommons.org/l/by/4.0/80x15.png"
-         width="80"
-         height="15"/>
-  </a>
-</p>    </footer>
-  </main>
-
-
-
-
-<script type="application/ld+json">
-{
-  "@context" : "http://schema.org",
-  "@type" : "Blog",
-  "name": " Shane Anderson ",
-  "url" : "https://shaneanderson.id.au",
-  "image": "/images/profile.jpg",
-  "description": ""
-}
-</script>
-
-
+</footer>
 </body>
 </html>
