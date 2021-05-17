@@ -64,9 +64,6 @@ footer {
 
 .article-content {
     word-wrap: break-word;
-}
-
-article div {
     line-height: 2rem;
     font-size: 1rem;
     font-weight: 300;
@@ -74,6 +71,7 @@ article div {
 
 code, kbd, samp, pre {
     font-family: monospace;
+    line-height: 1rem;
   }
   
 blockquote, pre {
