@@ -5,21 +5,28 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://shaneanderson.id.au/</loc>
-<lastmod>2021-05-18T18:04:42-00:00</lastmod>
+<lastmod>2021-05-29T19:19:08-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://shaneanderson.id.au/pages/about.html</loc>
-<lastmod>2021-05-18T18:04:42-00:00</lastmod>
+<lastmod>2021-05-29T19:19:08-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://shaneanderson.id.au/pages/projects.html</loc>
-<lastmod>2021-05-18T18:04:42-00:00</lastmod>
+<lastmod>2021-05-29T19:19:08-00:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://shaneanderson.id.au/fixing-stuttering-for-jedi-fallen-order-on-pc.html</loc>
+<lastmod>2021-05-29T19:00:00+10:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -47,7 +54,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://shaneanderson.id.au/author/shane-anderson.html</loc>
-<lastmod>2021-03-30T19:00:00+10:05</lastmod>
+<lastmod>2021-05-29T19:00:00+10:05</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
