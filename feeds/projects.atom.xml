@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Shane Anderson - Projects</title><link href="https://shaneanderson.id.au/" rel="alternate"></link><link href="https://shaneanderson.id.au/feeds/projects.atom.xml" rel="self"></link><id>https://shaneanderson.id.au/</id><updated>2021-01-28T19:00:00+11:00</updated><entry><title>Introducing S3Fetch</title><link href="https://shaneanderson.id.au/introducing-s3fetch.html" rel="alternate"></link><published>2021-01-28T19:00:00+11:00</published><updated>2021-01-28T19:00:00+11:00</updated><author><name>Shane Anderson</name></author><id>tag:shaneanderson.id.au,2021-01-28:/introducing-s3fetch.html</id><summary type="html">&lt;p&gt;&lt;a href="https://github.com/rxvt/s3fetch"&gt;S3Fetch&lt;/a&gt; is an simple &amp;amp; fast multi-threaded S3 download tool built to make the process of downloading objects from a large S3 bucket as fast and painless as possible, especially if you need to download objects under a specific prefix.&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;a href="https://github.com/rxvt/s3fetch"&gt;S3Fetch&lt;/a&gt; is an simple &amp;amp; fast multi-threaded S3 download tool built to make the process of downloading objects from a large S3 bucket as fast and painless as possible, especially if you need to download objects under a specific prefix.&lt;/p&gt;
+&lt;p&gt;While tools like &lt;a href="https://pypi.org/project/s4cmd/"&gt;s4cmd&lt;/a&gt; work well for general usage (and have a lot more options!) they are not performant when downloading objects under a prefix from a bucket containing a large amount of objects as they retrieve a listing of all objects in the bucket first, then filter the object keys which results is a extremely long time to first byte. S3Fetch instead requests that S3 return only the objects under the prefix you've requested and as the object listing occurs in a separate thread than the downloads &lt;a href="https://github.com/rxvt/s3fetch"&gt;S3Fetch&lt;/a&gt; will start to download the first object as soon as that first object key is returned by S3 even while S3 continues to send the rest of the object listing!&lt;/p&gt;
+&lt;p&gt;Testing shows that (see benchmarks below) &lt;a href="https://pypi.org/project/s4cmd/"&gt;s4cmd&lt;/a&gt; will not start downloading a single file within 60 minutes, while &lt;a href="https://github.com/rxvt/s3fetch"&gt;S3Fetch&lt;/a&gt; finishes downloading all objects in approx. 8 seconds when using 100 threads.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/rxvt/s3fetch"&gt;S3Fetch&lt;/a&gt; is Open Source, written in Python and you can read more detailed instructions and information, raise issues or contribute if that takes your fancy via the &lt;a href="https://github.com/rxvt/s3fetch"&gt;GitHub repo&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;You can also use the comment section below if you just want to chat about S3Fetch or ask questions.&lt;/p&gt;
+&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;p&gt;Quick and easy install from PyPi. I recommend installation using &lt;a href="https://pypi.org/project/pipx/"&gt;pipx&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pipx install s3fetch
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;but you can also install using &lt;code&gt;pip&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;pip install s3fetch
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;Usage&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;s3fetch s3://bucket/prefix
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;s3fetch s3://fake-test-bucket/fake-prod-data/2020-10-17
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The above would download any object that has a prefix of &lt;code&gt;fake-prod-data/2020-10-17&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;You can find more detailed instructions in the &lt;a href="https://github.com/rxvt/s3fetch"&gt;README&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Benchmarks&lt;/h2&gt;
+&lt;p&gt;Downloading 428 objects under the &lt;code&gt;fake-prod-data/2020-10-17&lt;/code&gt; prefix from a bucket containing a total of 12,204,097 objects.&lt;/p&gt;
+&lt;h4&gt;With 100 threads&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;s3fetch s3://fake-test-bucket/fake-prod-data/2020-10-17  --threads 100
+
+8.259 seconds
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;s4cmd get s3://fake-test-bucket/fake-prod-data/2020-10-17* --num-threads 100
+
+Timed out while listing objects after 60min.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4&gt;With 8 threads&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;s3fetch s3://fake-test-bucket/fake-prod-data/2020-10-17  --threads 8
+
+29.140 seconds
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;time s4cmd get s3://fake-test-bucket/fake-prod-data/2020-10-17* --num-threads 8
+
+Timed out while listing objects after 60min.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="Projects"></category><category term="aws"></category><category term="python"></category></entry></feed>

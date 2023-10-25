@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Shane Anderson - General</title><link href="https://shaneanderson.id.au/" rel="alternate"></link><link href="https://shaneanderson.id.au/feeds/general.atom.xml" rel="self"></link><id>https://shaneanderson.id.au/</id><updated>2021-03-30T19:00:00+11:00</updated><entry><title>Replacing the default Windows 10 sound applet with EarTrumpet</title><link href="https://shaneanderson.id.au/replacing-the-default-windows-10-sound-applet-with-eartrumpet.html" rel="alternate"></link><published>2021-03-30T19:00:00+11:00</published><updated>2021-03-30T19:00:00+11:00</updated><author><name>Shane Anderson</name></author><id>tag:shaneanderson.id.au,2021-03-30:/replacing-the-default-windows-10-sound-applet-with-eartrumpet.html</id><summary type="html">&lt;p&gt;I've recently started using &lt;a href="https://www.microsoft.com/store/p/eartrumpet/9nblggh516xp"&gt;EarTrumpet&lt;/a&gt; as a replacement for the standard Windows audio applet that lives in the notification area and been loving that it allows me to adjust the volume per application. Combined with the standard Windows functionality that allows the assignment of individual audio devices to specific applications results in audio management in Windows becoming quite configurable.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I've recently started using &lt;a href="https://www.microsoft.com/store/p/eartrumpet/9nblggh516xp"&gt;EarTrumpet&lt;/a&gt; as a replacement for the standard Windows audio applet that lives in the notification area and been loving that it allows me to adjust the volume per application. Combined with the standard Windows functionality that allows the assignment of individual audio devices to specific applications results in audio management in Windows becoming quite configurable.&lt;/p&gt;
+&lt;p&gt;One thing that took me a bit of digging to figure out is how to easily replace the standard audio applet with EarTrumpet as I didn't want to have 2 audio applets visible in the notifications area, so thought I'd document the process here.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Open &lt;code&gt;Start Menu&lt;/code&gt; and search for &lt;code&gt;Taskbar Settings&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Scroll down to the &lt;code&gt;Notification area&lt;/code&gt; section and click on &lt;code&gt;Select which icons appear on the taskbar&lt;/code&gt;.
+&lt;img alt="Taskbar Settings" src="images/eartrumpet_taskbar_settings.png"&gt;&lt;/li&gt;
+&lt;li&gt;Enable EarTrumpet.
+&lt;img alt="Enable EarTrumpet" src="images/eartrumpet_app_icons.png"&gt;&lt;/li&gt;
+&lt;li&gt;Navigate back to &lt;code&gt;Taskbar Settings&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Click on &lt;code&gt;Turn system icons on or off&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Disable &lt;code&gt;Volume&lt;/code&gt;.
+&lt;img alt="Enable EarTrumpet" src="images/eartrumpet_system_icons.png"&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;You should now only have a single audio applet in your notification area.&lt;/p&gt;</content><category term="General"></category><category term="windows"></category><category term="audio"></category></entry><entry><title>Apple developer tools are frustrating</title><link href="https://shaneanderson.id.au/apple-developer-tools-are-frustrating.html" rel="alternate"></link><published>2021-02-27T16:30:00+11:00</published><updated>2021-02-27T16:30:00+11:00</updated><author><name>Shane Anderson</name></author><id>tag:shaneanderson.id.au,2021-02-27:/apple-developer-tools-are-frustrating.html</id><summary type="html">&lt;p&gt;I've never done any MacOS or iOS development work myself but over the last week at work I've been attempting to package up a Python command line utility into a single executable MacOS binary to make it easier for people to use without them having to setup a virtualenv and install various packages, etc and I feel like I'm seeing how the sausage is made and it's maddening.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I've never done any MacOS or iOS development work myself but over the last week at work I've been attempting to package up a Python command line utility into a single executable MacOS binary to make it easier for people to use without them having to setup a virtualenv and install various packages, etc and I feel like I'm seeing how the sausage is made and it's maddening.&lt;/p&gt;
+&lt;p&gt;Here's just an example of the quality of the Apple developer tooling I've been dealing with, and I assume MacOS and iOS developers have to often battle with.&lt;/p&gt;
+&lt;p&gt;Essentially when using an API key and certificate to authenticate with the notorization service, rather than an AppleID username and password, the &lt;code&gt;--output-format=json&lt;/code&gt; option to &lt;code&gt;xcrun altool&lt;/code&gt; now prints out a line of plaintext followed by a JSON blob instead of just a JSON blob.&lt;/p&gt;
+&lt;p&gt;I used to get this when authenticating using username and password credentials:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;{&amp;quot;json-blob&amp;quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now I get this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;b&amp;#39;Generated JWT: xxxxxxxx\n{&amp;quot;json-blob&amp;quot;}\n\n&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Another example of something basic not working as documented is list of directories which are searched for your API private key certificate. The &lt;code&gt;xcrun altool&lt;/code&gt; command is supposed to search the following directories for the certificate your specify:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt; ./private_keys
+ ~/private_keys
+ ~/.private_keys
+ ~/.appstoreconnect/private_keys
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;In reality &lt;code&gt;./private_keys&lt;/code&gt; is not searched. &lt;/p&gt;
+&lt;p&gt;To make things even weirder this only seems to occur if you attempt to run &lt;code&gt;xcrun altool&lt;/code&gt; with the &lt;code&gt;--notarize-app&lt;/code&gt; or &lt;code&gt;--upload&lt;/code&gt; options, although I believe the bug is actually just in the &lt;code&gt;--upload&lt;/code&gt; code path since &lt;code&gt;--notarize-app&lt;/code&gt; actually prints out a JWT string and seems to then explode when I assume it attemps to upload your package for notorization.&lt;/p&gt;
+&lt;p&gt;When I first discussed this with a colleague they came back to me saying that their certs were found correctly, it's only after we discovered that I was using the &lt;code&gt;--notorize-app&lt;/code&gt; option and they were using &lt;code&gt;--validate-app&lt;/code&gt; option that we figured out that the bug was dependant upon the option passed to &lt;code&gt;altool&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Luckily I found &lt;a href="https://stackoverflow.com/questions/63700135/apple-application-loader-altool-issue-when-using-api-key"&gt;this&lt;/a&gt; StackOverflow post to confirm I wasn't going crazy and it's definitely a thing.&lt;/p&gt;</content><category term="General"></category><category term="apple"></category></entry></feed>

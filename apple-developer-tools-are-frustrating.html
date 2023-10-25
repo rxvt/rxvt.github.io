@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;350;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/css/base.css">
+  
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/pygments/default.min.css">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BX2RNF9K4Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BX2RNF9K4Y');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+    <script src="https://kit.fontawesome.com/d56d93ba3d.js" crossorigin="anonymous"></script>
+
+    <title>Shane Anderson</title>
+</head>
+
+<body>
+<header class="top-nav">
+    <nav>
+        <div>
+            <div class="blog-title">Shane Anderson</div>
+            <a class="nav" href="https://shaneanderson.id.au">Home</a> |
+            <a class="nav" href="https://shaneanderson.id.au/pages/about.html">About</a> |
+            <a class="nav" href="https://shaneanderson.id.au/pages/projects.html">Projects</a> |
+                <a href="https://github.com/rxvt"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/shaneanderson3/"><i class="fab fa-linkedin"></i></a>
+                <a href="/feeds/all.atom.xml"><i class="fas fa-rss"></i></a>
+        </div>
+    </nav>
+</header>
+<div class="single">
+  <article>
+    <header>
+        <h2 class="article-title"><a href="https://shaneanderson.id.au/apple-developer-tools-are-frustrating.html#apple-developer-tools-are-frustrating">Apple developer tools are frustrating</a></h2>
+        <p class="article-meta">Posted on Sat 27 February 2021 posted in
+          <a href="https://shaneanderson.id.au/tag/apple.html">apple</a>    </header>
+    <div class="article-content">
+      <p>I've never done any MacOS or iOS development work myself but over the last week at work I've been attempting to package up a Python command line utility into a single executable MacOS binary to make it easier for people to use without them having to setup a virtualenv and install various packages, etc and I feel like I'm seeing how the sausage is made and it's maddening.</p>
+<p>Here's just an example of the quality of the Apple developer tooling I've been dealing with, and I assume MacOS and iOS developers have to often battle with.</p>
+<p>Essentially when using an API key and certificate to authenticate with the notorization service, rather than an AppleID username and password, the <code>--output-format=json</code> option to <code>xcrun altool</code> now prints out a line of plaintext followed by a JSON blob instead of just a JSON blob.</p>
+<p>I used to get this when authenticating using username and password credentials:</p>
+<div class="highlight"><pre><span></span><code>{&quot;json-blob&quot;}
+</code></pre></div>
+
+<p>Now I get this:</p>
+<div class="highlight"><pre><span></span><code>b&#39;Generated JWT: xxxxxxxx\n{&quot;json-blob&quot;}\n\n&#39;
+</code></pre></div>
+
+<p>Another example of something basic not working as documented is list of directories which are searched for your API private key certificate. The <code>xcrun altool</code> command is supposed to search the following directories for the certificate your specify:</p>
+<div class="highlight"><pre><span></span><code> ./private_keys
+ ~/private_keys
+ ~/.private_keys
+ ~/.appstoreconnect/private_keys
+</code></pre></div>
+
+<p>In reality <code>./private_keys</code> is not searched. </p>
+<p>To make things even weirder this only seems to occur if you attempt to run <code>xcrun altool</code> with the <code>--notarize-app</code> or <code>--upload</code> options, although I believe the bug is actually just in the <code>--upload</code> code path since <code>--notarize-app</code> actually prints out a JWT string and seems to then explode when I assume it attemps to upload your package for notorization.</p>
+<p>When I first discussed this with a colleague they came back to me saying that their certs were found correctly, it's only after we discovered that I was using the <code>--notorize-app</code> option and they were using <code>--validate-app</code> option that we figured out that the bug was dependant upon the option passed to <code>altool</code>.</p>
+<p>Luckily I found <a href="https://stackoverflow.com/questions/63700135/apple-application-loader-altool-issue-when-using-api-key">this</a> StackOverflow post to confirm I wasn't going crazy and it's definitely a thing.</p>
+    </div>
+    <hr />
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    
+    var disqus_config = function () {
+    this.page.url = 'https://shaneanderson.id.au/apple-developer-tools-are-frustrating.html';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = 'apple-developer-tools-are-frustrating'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shaneanderson-id-au.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>  </article>
+</div>
+<footer>
+<hr/>
+<p>
+  &copy; 2021 Shane Anderson - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US" target="_blank">Creative Commons Attribution</a>. Built with <a href="http://getpelican.com" target="_blank">Pelican</a>
+</p>
+</footer>
+</body>
+</html>

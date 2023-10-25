@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;350;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/css/base.css">
+  
+    <link id="pygments-light-theme" rel="stylesheet" type="text/css" href="https://shaneanderson.id.au/theme/pygments/default.min.css">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-BX2RNF9K4Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-BX2RNF9K4Y');
+</script>
+<!-- End of Global site tag (gtag.js) - Google Analytics -->
+    <script src="https://kit.fontawesome.com/d56d93ba3d.js" crossorigin="anonymous"></script>
+
+    <title>Shane Anderson</title>
+</head>
+
+<body>
+<header class="top-nav">
+    <nav>
+        <div>
+            <div class="blog-title">Shane Anderson</div>
+            <a class="nav" href="https://shaneanderson.id.au">Home</a> |
+            <a class="nav" href="https://shaneanderson.id.au/pages/about.html">About</a> |
+            <a class="nav" href="https://shaneanderson.id.au/pages/projects.html">Projects</a> |
+                <a href="https://github.com/rxvt"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/shaneanderson3/"><i class="fab fa-linkedin"></i></a>
+                <a href="/feeds/all.atom.xml"><i class="fas fa-rss"></i></a>
+        </div>
+    </nav>
+</header>
+<div class="single">
+  <article>
+    <header>
+        <h2 class="article-title"><a href="https://shaneanderson.id.au/drafts/building-the-woelds-worst-apache-httpd-auth-module.html#building-the-woelds-worst-apache-httpd-auth-module">Building the woelds worst Apache HTTPD auth module</a></h2>
+        <p class="article-meta">Posted on Sun 21 March 2021 posted in
+          <a href="https://shaneanderson.id.au/tag/c.html">c</a>,          <a href="https://shaneanderson.id.au/tag/httpd.html">httpd</a>    </header>
+    <div class="article-content">
+      <p>I've never really built anything in C other than the standard <code>hello_world.c</code>, so in this article we build the worlds worst Apache HTTPD authentication module!</p>
+<p>If you're a C newb like myself check out this freeCodeCamp <a href="https://www.youtube.com/watch?v=KJgsSFOSQv0">tutorial</a> to learn the basics. This article is based off the official Apache module <a href="https://httpd.apache.org/docs/2.4/developer/modguide.html">tutorial</a>.</p>
+<h1>Getting setup</h1>
+<p>First you'll need to ensure Apache HTTPD 2.4 is installed along with the required development libraries. If you're running Ubuntu you can install them with the following:</p>
+<div class="highlight"><pre><span></span><code>apt-get -y install apache2 apache2-dev
+</code></pre></div>
+
+<p>You can test you've got the correct bits installed by running:</p>
+<div class="highlight"><pre><span></span><code>apxs --help
+</code></pre></div>
+
+<h1>Step 1 - Getting the basics down.</h1>
+<p>First let's include the HTTPD header files that provide various functions, data structures and macros that we'll be using. Additionally we'll sketch out a couple of functions will be required later on.</p>
+<p>Create file called <code>mod_anti_hacker.c</code> and enter the following code:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// These provide various functions, data structures and macros that relate to handling a HTTP request.</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;httpd.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;http_core.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;http_protocol.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;http_request.h&quot;</span>
+
+<span class="c1">// Function prototypes.</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">register_hooks</span><span class="p">(</span><span class="n">apr_pool_t</span><span class="w"> </span><span class="o">*</span><span class="n">pool</span><span class="p">);</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">anti_hacker_handler</span><span class="p">(</span><span class="n">request_rec</span><span class="w"> </span><span class="o">*</span><span class="n">r</span><span class="p">);</span>
+
+<span class="c1">// Module declaration. Tells HTTPD what your module is going to hook into.</span>
+<span class="c1">// The `anti_hacker_module` name here will be used in the HTTPD configuration later.</span>
+<span class="n">module</span><span class="w"> </span><span class="n">AP_MODULE_DECLARE_DATA</span><span class="w"> </span><span class="n">anti_hacker_module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">STANDARD20_MODULE_STUFF</span><span class="p">,</span>
+<span class="w">    </span><span class="nb">NULL</span><span class="p">,</span><span class="w">               </span><span class="cm">/* Per-directory configuration handler */</span>
+<span class="w">    </span><span class="nb">NULL</span><span class="p">,</span><span class="w">               </span><span class="cm">/* Merge handler for per-directory configurations */</span>
+<span class="w">    </span><span class="nb">NULL</span><span class="p">,</span><span class="w">               </span><span class="cm">/* Per-server configuration handler */</span>
+<span class="w">    </span><span class="nb">NULL</span><span class="p">,</span><span class="w">               </span><span class="cm">/* Merge handler for per-server configurations */</span>
+<span class="w">    </span><span class="nb">NULL</span><span class="p">,</span><span class="w">               </span><span class="cm">/* Any directives we may have for httpd */</span>
+<span class="w">    </span><span class="n">register_hooks</span><span class="p">};</span><span class="w">    </span><span class="cm">/* Our hook registering function */</span>
+
+<span class="c1">// Called to register any handlers you create. </span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">register_hooks</span><span class="p">(</span><span class="n">apr_pool_t</span><span class="w"> </span><span class="o">*</span><span class="n">pool</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ap_hook_handler</span><span class="p">(</span><span class="n">anti_hacker_handler</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">APR_HOOK_LAST</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// Handler that processes the request that is routed to it.</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">anti_hacker_handler</span><span class="p">(</span><span class="n">request_rec</span><span class="w"> </span><span class="o">*</span><span class="n">r</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Now that's we've got the basic skeleton down let's try to compile the module using the Apache <a href="https://httpd.apache.org/docs/2.4/programs/apxs.html">apxs</a> build tool to make sure everything is setup correctly:</p>
+<div class="highlight"><pre><span></span><code>apxs -c mod_anti_hacker.c
+</code></pre></div>
+
+<p>This should result in the following additional files being created:</p>
+<div class="highlight"><pre><span></span><code> mod_anti_hacker.la  mod_anti_hacker.lo  mod_anti_hacker.slo
+</code></pre></div>
+
+<h1>Step 2 - Hello, world.</h1>
+<p>Now that we have everything setup let's quickly go through the skeleton we have in place and we can then start putting in the logic of our module.</p>
+<h2>AP_MODULE_DECLARE_DATA</h2>
+<div class="highlight"><pre><span></span><code><span class="n">module</span><span class="w"> </span><span class="n">AP_MODULE_DECLARE_DATA</span><span class="w"> </span><span class="n">anti_hacker_module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">STANDARD20_MODULE_STUFF</span><span class="p">,</span>
+<span class="w">    </span><span class="nb">NULL</span><span class="p">,</span><span class="w">               </span><span class="cm">/* Per-directory configuration handler */</span>
+<span class="w">    </span><span class="nb">NULL</span><span class="p">,</span><span class="w">               </span><span class="cm">/* Merge handler for per-directory configurations */</span>
+<span class="w">    </span><span class="nb">NULL</span><span class="p">,</span><span class="w">               </span><span class="cm">/* Per-server configuration handler */</span>
+<span class="w">    </span><span class="nb">NULL</span><span class="p">,</span><span class="w">               </span><span class="cm">/* Merge handler for per-server configurations */</span>
+<span class="w">    </span><span class="nb">NULL</span><span class="p">,</span><span class="w">               </span><span class="cm">/* Any directives we may have for httpd */</span>
+<span class="w">    </span><span class="n">register_hooks</span><span class="p">};</span><span class="w">    </span><span class="cm">/* Our hook registering function */</span>
+</code></pre></div>
+
+<p>This macro is a declaration to HTTPD about what our module cares about, either providing a function or <code>NULL</code> if wish to ignore it. In our module we only care about hooking into the request so we provide the <code>register_hooks</code> function:</p>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">register_hooks</span><span class="p">(</span><span class="n">apr_pool_t</span><span class="w"> </span><span class="o">*</span><span class="n">pool</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ap_hook_handler</span><span class="p">(</span><span class="n">anti_hacker_handler</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">APR_HOOK_LAST</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>We want to our module to interact with the request so we use the provided <code>ap_hook_handler</code> function passing it the <code>anti_hacker_handler</code> function that will contain the actual logic for handling the request. You can register multiple hooks into various stages of the HTTPD lifecycle including when a child process is spawned, configuration is loaded and a log entry is written with each having their own function.</p>
+<p>Currently our <code>anti_hacker_handler</code> is passed the <code>request_rec</code> struct which contains information about the request but contains no logic. Let's rectify that.</p>
+<div class="highlight"><pre><span></span><code><span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">anti_hacker_handler</span><span class="p">(</span><span class="n">request_rec</span><span class="w"> </span><span class="o">*</span><span class="n">r</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">r</span><span class="o">-&gt;</span><span class="n">method</span>
+
+<span class="p">}</span>
+</code></pre></div>
+    </div>
+    <hr />
+<div id="disqus_thread"></div>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    
+    var disqus_config = function () {
+    this.page.url = 'https://shaneanderson.id.au/drafts/building-the-woelds-worst-apache-httpd-auth-module.html';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = 'building-the-woelds-worst-apache-httpd-auth-module'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://shaneanderson-id-au.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>  </article>
+</div>
+<footer>
+<hr/>
+<p>
+  &copy; 2021 Shane Anderson - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/deed.en_US" target="_blank">Creative Commons Attribution</a>. Built with <a href="http://getpelican.com" target="_blank">Pelican</a>
+</p>
+</footer>
+</body>
+</html>
