@@ -6,7 +6,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://shaneanderson.id.au/</loc>
-<lastmod>2023-10-25T19:29:44-00:00</lastmod>
+<lastmod>2023-10-25T19:31:07-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -20,28 +20,28 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://shaneanderson.id.au/archives.html</loc>
-<lastmod>2023-10-25T19:29:44-00:00</lastmod>
+<lastmod>2023-10-25T19:31:07-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://shaneanderson.id.au/author/shane-anderson.html</loc>
-<lastmod>2023-10-25T19:29:44-00:00</lastmod>
+<lastmod>2023-10-25T19:31:07-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://shaneanderson.id.au/authors.html</loc>
-<lastmod>2023-10-25T19:29:44-00:00</lastmod>
+<lastmod>2023-10-25T19:31:07-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://shaneanderson.id.au/categories.html</loc>
-<lastmod>2023-10-25T19:29:44-00:00</lastmod>
+<lastmod>2023-10-25T19:31:07-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -55,14 +55,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://shaneanderson.id.au/pages/about.html</loc>
-<lastmod>2023-10-25T19:29:44-00:00</lastmod>
+<lastmod>2023-10-25T19:31:07-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://shaneanderson.id.au/pages/projects.html</loc>
-<lastmod>2023-10-25T19:29:44-00:00</lastmod>
+<lastmod>2023-10-25T19:31:07-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -76,7 +76,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://shaneanderson.id.au/tags.html</loc>
-<lastmod>2023-10-25T19:29:44-00:00</lastmod>
+<lastmod>2023-10-25T19:31:07-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
